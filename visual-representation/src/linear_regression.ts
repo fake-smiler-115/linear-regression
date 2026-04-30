@@ -1,4 +1,5 @@
-import { Data } from "./types.ts";
+import type { Data } from "./types.ts";
+
 
 const applyLinearRegression = (slope: number, x: number, intercept: number) => {
   return slope * x + intercept;
