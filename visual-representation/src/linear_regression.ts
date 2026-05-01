@@ -1,42 +1,43 @@
 import type { Data } from "./types.ts";
 
-
 const applyLinearRegression = (slope: number, x: number, intercept: number) => {
   return slope * x + intercept;
 };
 
-function computeMSE(data : Data, slope : number, intercept : number) {
-  let error = 0;
-  for (let i = 0; i < data.length; i++) {
-    const yPred = slope * data[i].x + intercept;
-    error += Math.pow(yPred - data[i].actualX, 2);
-  }
-  return error / data.length;
-}
+const calculateCompleteError = (
+  data: Data,
+  slope: number,
+  intercept: number,
+) => {
+  const yPred = slope * data.x + intercept;
+  return Math.pow(yPred - data.finalValue, 2);
+};
+
+const findChangeGradient = (data: Data, slope: number, intercept: number) => {
+  const x = data.x;
+  const actualValue = data.finalValue;
+  const pred = applyLinearRegression(slope, x, intercept);
+  const error = pred - actualValue;
+  return { slopeGradient: error * x, interceptGradient: error };
+};
 
 export const trainData = (data: Data, epochs: number, learningRate = 0.01) => {
+
   let slope = 0;
   let intercept = 0;
   for (let i = 0; i < epochs; i++) {
-    let slopeGradient = 0;
-    let interceptGradient = 0;
+    const { slopeGradient, interceptGradient } = findChangeGradient(
+      data,
+      slope,
+      intercept,
+    );
 
-    for (let j = 0; j < data.length; j++) {
-      const x = data[j].x;
-      const actualValue = data[j].actualX;
-      const pred = applyLinearRegression(slope, x, intercept);
-      const error = pred - actualValue;
-      slopeGradient += error * x;
-      interceptGradient += error;
-    }
+    slope -= learningRate * 2 * slopeGradient;
+    intercept -= learningRate * 2 * interceptGradient;
 
-    slopeGradient = (2 / data.length) * slopeGradient;
-    interceptGradient = (2 / data.length) * interceptGradient;
-
-    slope -= learningRate * slopeGradient;
-    intercept -= learningRate * interceptGradient;
-
-      console.log(`Epoch ${epochs}, MSE: ${computeMSE(data, slope, intercept)}, ${data[0].x}`);
-      console.log({slope, intercept});
+    console.log(
+      `Epoch ${i}, MSE: ${calculateCompleteError(data, slope, intercept)}, ${data.x}`,
+    );
+    console.log({ slope, intercept });
   }
 };

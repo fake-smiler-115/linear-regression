@@ -1,3 +1,1 @@
-type Points =  {x: number,  actualX : number};
-
-export type Data = Points[];
+export type Data = {x: number,  finalValue : number};
