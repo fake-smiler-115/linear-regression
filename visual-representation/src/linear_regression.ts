@@ -48,7 +48,7 @@ export const trainData = (
     );
 
     console.log(
-      `Epoch ${i}, MSE: ${calculateCompleteError(data, slope, intercept)}, ${data.x}`,
+      `Epoch ${i}, MSE: ${calculateCompleteError(data, slope, intercept)}`,
     );
     console.log({ slope, intercept });
   }

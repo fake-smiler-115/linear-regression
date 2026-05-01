@@ -5,7 +5,8 @@ import type { Data } from "./types.ts";
 import { reducer } from "./reducer.ts";
 
 const App = () => {
-  const data: Data = { x: 10, finalValue: 200 };
+  const correctData = {slope : 10, intercept : 10};
+  const data: Data = { x : 1, finalValue:  20};
   const [trainigDetails, dispatch] = useReducer(reducer, {
     slope: 0,
     intercept: 0,
@@ -15,11 +16,11 @@ const App = () => {
 
   return (
     <div>
-      hello world
       <DrawRegression
         slope={trainigDetails.slope}
         intercept={trainigDetails.intercept}
-        x={10}
+        x={data.x}
+        correctData ={correctData}
       />
     </div>
   );

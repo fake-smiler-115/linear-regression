@@ -1,26 +1,29 @@
 import { useEffect, useRef } from "react";
+import { Colors } from "./types";
 
 export const DrawRegression = ({
   slope,
   intercept,
   x,
+  correctData
 }: {
   slope: number;
   intercept: number;
   x: number;
+  correctData : {slope : number, intercept : number},
 }) => {
   const canvasRef = useRef(null);
   const canvasElemetn = <canvas ref={canvasRef} width={600} height={400} />;
   
   useEffect(() => {
     const ctx = canvasRef.current.getContext("2d") as CanvasRenderingContext2D;
-    drawGraph(ctx, slope, intercept, x);
-    drawGraph(ctx, 10, 100, 10); 
+    drawGraph(ctx, slope, intercept, x, Colors.red);
+    drawGraph(ctx, correctData.slope, correctData.intercept, x, Colors.blue); 
   }, [slope, intercept, x]);
   return canvasElemetn;
 };
 
-const drawGraph = (ctx : CanvasRenderingContext2D, m : number, b : number, maxX : number)  : void => {
+const drawGraph = (ctx : CanvasRenderingContext2D, m : number, b : number, maxX : number,color : Colors)  : void => {
   const width = ctx.canvas.width;
   const height = ctx.canvas.height;
 
@@ -53,6 +56,6 @@ const drawGraph = (ctx : CanvasRenderingContext2D, m : number, b : number, maxX 
     }
   }
 
-  ctx.strokeStyle = "red";
+  ctx.strokeStyle = color;
   ctx.stroke();
 };

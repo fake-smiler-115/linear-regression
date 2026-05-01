@@ -7,3 +7,9 @@ export enum ActionTypes {
 export type Action = { slope: number; intercept: number; type: ActionTypes };
 
 export type TrainingDetails = { slope: number; intercept: number };
+
+export  enum Colors {
+  'red' = 'red',
+  'green' = 'green',
+  'blue' = 'blue',
+}
