@@ -10,3 +10,8 @@ add all divided .
 
 gradient => currentWeight - (learning rate - gradient);
   
+  y = mx + b;
+  2 = m1 + b
+  2 = 1 + 1
+
+  ax+by+c

@@ -11,11 +11,11 @@ export const DrawRegression = ({
 }) => {
   const canvasRef = useRef(null);
   const canvasElemetn = <canvas ref={canvasRef} width={600} height={400} />;
-
+  
   useEffect(() => {
     const ctx = canvasRef.current.getContext("2d") as CanvasRenderingContext2D;
     drawGraph(ctx, slope, intercept, x);
-    // drawGraph(ctx, 5, 5, 1); 
+    drawGraph(ctx, 10, 100, 10); 
   }, [slope, intercept, x]);
   return canvasElemetn;
 };
@@ -24,7 +24,7 @@ const drawGraph = (ctx : CanvasRenderingContext2D, m : number, b : number, maxX 
   const width = ctx.canvas.width;
   const height = ctx.canvas.height;
 
-  ctx.clearRect(0, 0, width, height);
+  // ctx.clearRect(0, 0, width, height);
 
   const scaleX = 40;
   const scaleY = 40;

@@ -1,4 +1,4 @@
-import type { Data } from "./types.ts";
+import { ActionTypes, type Action, type Data } from "./types.ts";
 
 const applyLinearRegression = (slope: number, x: number, intercept: number) => {
   return slope * x + intercept;
@@ -21,8 +21,12 @@ const findChangeGradient = (data: Data, slope: number, intercept: number) => {
   return { slopeGradient: error * x, interceptGradient: error };
 };
 
-export const trainData = (data: Data, epochs: number, learningRate = 0.01) => {
-
+export const trainData = (
+  data: Data,
+  epochs: number,
+  dispatch: React.ActionDispatch<[action: Action]>,
+  learningRate = 0.01,
+) => {
   let slope = 0;
   let intercept = 0;
   for (let i = 0; i < epochs; i++) {
@@ -34,6 +38,14 @@ export const trainData = (data: Data, epochs: number, learningRate = 0.01) => {
 
     slope -= learningRate * 2 * slopeGradient;
     intercept -= learningRate * 2 * interceptGradient;
+    const upadatedSlope = slope;
+    const updatedIntercept = intercept;
+    setTimeout(
+      () => {
+        dispatch({ slope : upadatedSlope, intercept : updatedIntercept, type: ActionTypes["updated-values"] });
+      },
+      i * 100 + 2,
+    );
 
     console.log(
       `Epoch ${i}, MSE: ${calculateCompleteError(data, slope, intercept)}, ${data.x}`,
