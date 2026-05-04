@@ -32,7 +32,6 @@ const drawGraph = (ctx : CanvasRenderingContext2D, m : number, b : number, maxX 
   const scaleX = 40;
   const scaleY = 40;
 
-  // draw axes
   ctx.beginPath();
   ctx.moveTo(0, height / 2);
   ctx.lineTo(width, height / 2);
@@ -40,9 +39,7 @@ const drawGraph = (ctx : CanvasRenderingContext2D, m : number, b : number, maxX 
   ctx.lineTo(width / 2, height);
   ctx.stroke();
 
-  // draw line
   ctx.beginPath();
-
   for (let x = -maxX; x <= maxX; x += 0.1) {
     const y = m * x + b;
 

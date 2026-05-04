@@ -5,8 +5,8 @@ import type { Data } from "./types.ts";
 import { reducer } from "./reducer.ts";
 
 const App = () => {
-  const correctData = {slope : 10, intercept : 10};
-  const data: Data = { x : 1, finalValue:  20};
+  const correctData = {slope : 1, intercept : 1};
+  const data: Data = { x : 1, finalValue:  2};
   const [trainigDetails, dispatch] = useReducer(reducer, {
     slope: 0,
     intercept: 0,
