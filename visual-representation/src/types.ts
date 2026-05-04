@@ -1,4 +1,4 @@
-export type Data = { x: number; finalValue: number };
+export type Data = { x: number; finalValue: number }[];
 
 export enum ActionTypes {
   "updated-values",

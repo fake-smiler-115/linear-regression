@@ -26,3 +26,7 @@ x = 5;
 b = 20;
 
 y = 70
+
+
+gradientx = n/2​∑((mx+b−y)⋅x);
+gradietnY = n/2​∑(mx+b−y);

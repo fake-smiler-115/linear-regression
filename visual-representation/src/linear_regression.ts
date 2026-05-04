@@ -9,16 +9,27 @@ const calculateCompleteError = (
   slope: number,
   intercept: number,
 ) => {
-  const yPred = slope * data.x + intercept;
-  return Math.pow(yPred - data.finalValue, 2);
+  let predValue = 0;
+  for(let index =0; index< data.length;index++) {
+    const yPred = slope * data[index].x + intercept;
+    predValue+= Math.pow(yPred - data[index].finalValue, 2);
+  }
+  return predValue/data.length;
 };
 
 const findChangeGradient = (data: Data, slope: number, intercept: number) => {
-  const x = data.x;
-  const actualValue = data.finalValue;
-  const pred = applyLinearRegression(slope, x, intercept);
-  const error = pred - actualValue;
-  return { slopeGradient: error * x, interceptGradient: error };
+  let slopeGradient = 0;
+  let interceptGradient = 0;
+  for (let index = 0; index < data.length; index++) {
+    const x = data[index].x;
+    const actualValue = data[index].finalValue;
+    const pred = applyLinearRegression(slope, x, intercept);
+    const error = pred - actualValue;
+    slopeGradient += error * x;
+    interceptGradient += error;
+  }
+
+  return { slopeGradient: (2 / data.length) * slopeGradient, interceptGradient: (2 / data.length) * interceptGradient };
 };
 
 export const trainData = (
@@ -36,8 +47,8 @@ export const trainData = (
       intercept,
     );
 
-    slope -= learningRate * 2 * slopeGradient;
-    intercept -= learningRate * 2 * interceptGradient;
+    slope -= learningRate  *2* slopeGradient;
+    intercept -= learningRate*2* interceptGradient;
     const upadatedSlope = slope;
     const updatedIntercept = intercept;
     setTimeout(
