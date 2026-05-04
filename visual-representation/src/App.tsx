@@ -5,16 +5,16 @@ import { ActionTypes, type Data } from "./types.ts";
 import { reducer } from "./reducer.ts";
 
 const App = () => {
-  const correctData = {slope : 50, intercept : 50};
-  const data: Data = [{x : 2, finalValue : 150}, {x : 1, finalValue : 100}];
+  const correctData = {slope : 23, intercept : 0};
+  const data: Data = [{x : 2, finalValue : 46}, {x : 1, finalValue : 23}, {x : 10, finalValue : 230}];
   const [trainigDetails, dispatch] = useReducer(reducer, {
     slope: 0,
     intercept: 0,
   });
 
   useEffect(() =>{
-    const predictedValues = trainData(data, 1000);
-    for(let index = 0; index < predictedValues?.length; index ++) {
+    const predictedValues = trainData(data, 100);
+    for(let index = 90; index < predictedValues?.length; index ++) {
       setTimeout(() => dispatch({
           slope: predictedValues[index].slope,
           intercept: predictedValues[index].intercept,
