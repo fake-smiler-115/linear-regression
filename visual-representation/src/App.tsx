@@ -14,7 +14,7 @@ const App = () => {
 
   useEffect(() =>{
     const predictedValues = trainData(data, 100);
-    for(let index = 90; index < predictedValues?.length; index ++) {
+    for(let index = 0; index < predictedValues?.length; index ++) {
       setTimeout(() => dispatch({
           slope: predictedValues[index].slope,
           intercept: predictedValues[index].intercept,

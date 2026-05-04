@@ -1,4 +1,4 @@
-import {type Data, type TrainingDetails } from "./types.ts";
+import {type Data, type predictedValues } from "./types.ts";
 
 const applyLinearRegression = (slope: number, x: number, intercept: number) => {
   return slope * x + intercept;
@@ -39,9 +39,9 @@ export const trainData = (
   data: Data,
   epochs: number,
   learningRate = 0.01,
-):TrainingDetails[] => {
+):predictedValues[] => {
 
-  const predictedValues:TrainingDetails[] = [];
+  const predictedValues:predictedValues[] = [];
   let slope = 0;
   let intercept = 0;
   
@@ -54,10 +54,11 @@ export const trainData = (
 
     slope -= learningRate * 2 * slopeGradient;
     intercept -= learningRate * 2 * interceptGradient;
-    predictedValues.push({slope, intercept});
+    const mse = calculateCompleteError(data, slope, intercept);
+    predictedValues.push({slope, intercept, mse});
 
     console.log(
-      `Epoch ${i}, MSE: ${calculateCompleteError(data, slope, intercept)}`,
+      `Epoch ${i}, MSE: ${mse}`,
     );
     console.log({ slope, intercept });
   }
