@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from "react";
 import { DrawRegression } from "./drawGraph.tsx";
 import { trainData } from "./linear_regression.ts";
-import type { Data } from "./types.ts";
+import { ActionTypes, type Data } from "./types.ts";
 import { reducer } from "./reducer.ts";
 
 const App = () => {
@@ -12,7 +12,16 @@ const App = () => {
     intercept: 0,
   });
 
-  useEffect(() => trainData(data, 1000, dispatch), []);
+  useEffect(() =>{
+    const predictedValues = trainData(data, 1000);
+    for(let index = 0; index < predictedValues?.length; index ++) {
+      setTimeout(() => dispatch({
+          slope: predictedValues[index].slope,
+          intercept: predictedValues[index].intercept,
+          type: ActionTypes["updated-values"],
+        }), 1000 + index);
+    }
+  } , []);
 
   return (
     <div>
