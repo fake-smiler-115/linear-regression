@@ -4,9 +4,9 @@ export enum ActionTypes {
   "updated-values",
 }
 
-export type Action = { slope: number; intercept: number; type: ActionTypes };
+export type Action = { slope: number; intercept: number; type: ActionTypes, mse: number };
 
-export type TrainingDetails = { slope: number; intercept: number };
+export type TrainingDetails = { slope: number; intercept: number, mse : number };
 
 export type predictedValues = { slope: number; intercept: number, mse : number };
 
