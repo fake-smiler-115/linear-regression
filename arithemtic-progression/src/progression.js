@@ -34,7 +34,7 @@ const findChangeGradient = (data, diff, firstValue) => {
 };
 
 export const trainData = (data, epochs, learningRate = 0.01) => {
-  const predictedValues = [];
+  // const predictedValues = [];
   let diff = 0;
   let firstValue = 0;
 
@@ -45,10 +45,12 @@ export const trainData = (data, epochs, learningRate = 0.01) => {
     firstValue -= learningRate * 2 * dwFirstValue;
 
     const mse = calculateMSE(data, diff, firstValue);
-    predictedValues.push({diff, firstValue, mse });
+    // predictedValues.push({diff, firstValue, mse });
 
     console.log(`Epoch ${i}, MSE: ${mse}`);
     console.log({ diff, firstValue });
   }
-  return predictedValues;
+  // return predictedValues;
+
+  return (x) => applyArithemticProgression(diff, x, firstValue);
 };

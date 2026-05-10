@@ -9,7 +9,12 @@ const main = () => {
     { x: 10, finalValue: 54 },
   ];
 
-  trainData(data, 300);
+  const model = trainData(data, 1000);
+
+  while((true)) {
+    const n = prompt('enter the n');
+    console.log(model(n));     
+  }
 }
 
 main()
