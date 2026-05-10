@@ -45,12 +45,12 @@ export const trainData = (
     const [dm,dy] = findChangeGradient(data,m,y);
     m -= learningRate * 2 * dm;
     y -= learningRate * 2 * dy;
-    const mse = calculateCompleteError(data, m,y);
-    console.log(
-      `Epoch ${i}, MSE: ${mse}`,
-    );
-    console.log({  m,y,zero : Math.sin((m *0) + y),ninety : Math.sin((m * Math.PI/2) + y) });
+    // const mse = calculateCompleteError(data, m,y);
+    // console.log(
+    //   `Epoch ${i}, MSE: ${mse}`,
+    // );
+    // console.log({  m,y,zero : Math.sin((m *0) + y),ninety : Math.sin((m * Math.PI/2) + y) });
   }
   // return predictedValues;
-  return (x : number) => Math.sin((m *x) + y);
+  return (x : number) => Math.sin((m * x) + y);
 };
