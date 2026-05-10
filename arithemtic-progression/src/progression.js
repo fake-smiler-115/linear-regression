@@ -2,7 +2,7 @@ const applyArithemticProgression = (diff, x, firstValue) => {
   return firstValue + (x - 1) * diff;
 };
 
-const calculateCompleteError = (data, diff, firstValue) => {
+const calculateMSE = (data, diff, firstValue) => {
   let sumOfSquareError = 0;
 
   for (let index = 0; index < data.length; index++) {
@@ -44,7 +44,7 @@ export const trainData = (data, epochs, learningRate = 0.01) => {
     diff -= learningRate * 2 * dwDiff;
     firstValue -= learningRate * 2 * dwFirstValue;
 
-    const mse = calculateCompleteError(data, diff, firstValue);
+    const mse = calculateMSE(data, diff, firstValue);
     predictedValues.push({diff, firstValue, mse });
 
     console.log(`Epoch ${i}, MSE: ${mse}`);
