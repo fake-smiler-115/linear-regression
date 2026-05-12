@@ -1,5 +1,10 @@
 import {type Data } from "./types.ts";
 
+const applyFormula = (m : number, b : number, x : number):number => {
+  // return Math.sin((m * x) + b);
+  return 1 / (1 + (Math.pow(Math.E, -(m * x + b))));
+}
+
 const calculateCompleteError = (
   data: Data,
   m: number,
@@ -19,12 +24,14 @@ const findChangeGradient = (data: Data, m: number, y : number) => {
   let bGradient = 0;
   for (let index = 0; index < data.length; index++) {
     const x = data[index].x;
-    const linearRegvalue = (m*x)+y;
+    // const linearRegvalue = (m*x)+y;
     const actualValue = data[index].finalValue;
-    const pred = Math.sin(linearRegvalue);
+    const pred = applyFormula(m, y, x);
     const error = pred - actualValue;
-    mgradient += error * Math.cos(linearRegvalue)*x;
-    bGradient += error * Math.cos(linearRegvalue);
+    // mgradient += error * Math.cos(linearRegvalue)*x;
+    // bGradient += error * Math.cos(linearRegvalue);
+    mgradient += error * x;
+    bGradient += error ;
   }
 
   return  [(2 / data.length) * mgradient, (2 / data.length) * bGradient];
@@ -52,5 +59,5 @@ export const trainData = (
     // console.log({  m,y,zero : Math.sin((m *0) + y),ninety : Math.sin((m * Math.PI/2) + y) });
   }
   // return predictedValues;
-  return (x : number) => Math.sin((m * x) + y);
+  return (x : number) => applyFormula(m,y,x);
 };
